@@ -3,7 +3,7 @@
 - Initialize our NodeJs Project Done
 - Initialize our firt view Done
 - create a room id Done
-- Add the ability to view our own video
+- Add the ability to view our own video Done
 - Add the ability to allow other to stream thier video
 - Add styling
 - Add the ability to create messages
