@@ -15,27 +15,23 @@ navigator.mediaDevices.getUserMedia({
     audio:false
 }).then((stream)=>{
     addVideoStream(myVideo,stream)
-    peer.on('call',(call)=>{
-        call.answer(stream)
-        const video=document.createElement('video')
-        call.on('stream',userVideoStream=>{
-        addVideoStream(video,userVideoStream)
-    })
-    })
     mystream=stream
-    socket.on('user-connected',(userId)=>{
-        /*Try to remove this setTimeout later as the issue i am having is that getuserMedia promise doest resolve int time for peer.on('call) to 
-        to answer the call so we delay connectToNewUser and then getUserMedia resolves*/
-        setTimeout(connectToNewUser,100,userId,stream)
-    })
+    socket.emit('join-room',roomId,peer.id)
 })
 .catch((error)=>{
     console.log(error)
 })
 
-peer.on('open',(id)=>{
-    console.log(id)
-    socket.emit('join-room',roomId,id)
+socket.on('user-connected',(userId)=>{
+    connectToNewUser(userId,mystream)
+})
+
+peer.on('call',(call)=>{
+    call.answer(mystream)
+    const video=document.createElement('video')
+    call.on('stream',userVideoStream=>{
+    addVideoStream(video,userVideoStream)
+})
 })
 
 
