@@ -9,13 +9,66 @@
     <script>
         const roomId="<%= roomId%>"
     </script>
-    <script  defer async src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script defer async src="script.js"></script>
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+    <script  defer src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <div id="grid-video">
+   <div class="main">
+        <div class="main__left">
+                <div class="main__videoGrid">
+                    <div id="grid-video">
+                        
+                    </div>
+                </div>
+                <div class="main__control">
+                    <div class="main__control__block">
+                        <div onclick="muteUnmute()" class="main__controls__button">
+                            <i class="fas fa-microphone"></i>
+                            <span>Mute</span>
+                        </div>
+                        <div onclick="playStop()" class="main__controls__button" >
+                            <i class="fas fa-video"></i>
+                            <span>Stop Video</span>
+                        </div>
+                    </div>
+                    <div class="main__control__block">
+                        <div class="main__controls__block">
+                            <div class="main__controls__button">
+                               <i class="fas fa-shield-alt"></i>
+                               <span>Security</span>
+                            </div>
+                            <div class="main__controls__button">
+                               <i class="fas fa-user-friends"></i>
+                               <span>Participants</span>
+                            </div>
+                            <div class="main__controls__button">
+                               <i class="fas fa-comment-alt"></i>
+                               <span>Chat</span>
+                            </div>
+                         </div>            
+                    </div>
+                    <div class="main__controls__block">
+                        <div class="main__controls__button">
+                           <span class="leave_meeting">Leave Meeting</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="main__right">
+            <div class="header">
+                <h4>CHAT</h4>
+            </div>
+            <div class="main__chat__window">
+                <ul class="messages">
 
-    </div>
+                </ul>
+            </div>
+            <div class="main__message__container">
+                <input id="chat__message" type="text" placeholder="Type message here ...">
+            </div>
+        </div>
+   </div>
 </body>
 </html>
