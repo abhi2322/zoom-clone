@@ -7,6 +7,14 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+.main__chat__window{
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.main__chat__window::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
 #grid-video{
     display:flex;
     justify-content: center;
@@ -88,6 +96,7 @@ video{
 
 .main__chat__window{
     flex-grow: 1;
+    padding-left:15px;
     overflow-y:auto;
 }
 

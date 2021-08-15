@@ -1,5 +1,8 @@
 const videoGrid=document.getElementById('grid-video')
 let myVideo=document.createElement('video')
+const text=document.getElementById('chat__message')
+const msgList=document.getElementById('msgList')
+const chatWindow = document.getElementById('chatWindow');
 myVideo.muted=true
 const socket=io()
 const peer=new Peer(undefined,{
@@ -50,4 +53,26 @@ addVideoStream=(video,stream)=>{
         video.play();
     })
     videoGrid.append(video)
+}
+
+text.addEventListener('keypress',(event)=>{
+    if(event.which==13 && text.value.length!==0){
+        socket.emit('message',text.value)
+        text.value=""
+    }
+})
+
+socket.on('createMsg',(msg)=>{
+    const isScrolledToBottom = chatWindow.scrollHeight - chatWindow.clientHeight <= chatWindow.scrollTop + 1
+    let li=document.createElement('li')
+    li.className="messages"
+    li.innerHTML=`<b>user</b><br/>${msg}`
+    msgList.appendChild(li)
+    if (isScrolledToBottom) {
+        chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight
+      }
+})
+
+function updateScroll(){
+    element.scrollTop = element.scrollHeight;
 }
