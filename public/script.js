@@ -7,6 +7,7 @@ myVideo.muted=true
 const peers={}
 const socket=io('/')
 const peer=new Peer({
+    path:'/peerjs',
     secure:true,
     host:'lit-shore-16346.herokuapp.com',
     port:'443',
