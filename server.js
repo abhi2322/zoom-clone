@@ -27,6 +27,9 @@ io.on('connection',(socket)=>{
         socket.on('message',(msg)=>{
             io.to(roomId).emit('createMsg',msg)
         })
+        socket.on('disconnect',()=>{
+            socket.broadcast.to(roomId).emit('user-disconnected',userId)
+        })
     })
 })
 

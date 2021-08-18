@@ -4,6 +4,7 @@ const text=document.getElementById('chat__message')
 const msgList=document.getElementById('msgList')
 const chatWindow = document.getElementById('chatWindow');
 myVideo.muted=true
+const peers={}
 const socket=io()
 const peer=new Peer(undefined,{
     path:'/peerjs',
@@ -37,6 +38,12 @@ peer.on('call',(call)=>{
 })
 })
 
+socket.on('user-disconnected',(peerId)=>{
+    if(peers[peerId]){
+        peers[peerId].close()
+    }
+})
+
 //funciton to make a connection to new user and add its vedio stream to our grid
 const connectToNewUser=(userId,stream)=>{
     const call=peer.call(userId,stream)
@@ -44,6 +51,10 @@ const connectToNewUser=(userId,stream)=>{
     call.on('stream',userVideoStream=>{
         addVideoStream(video,userVideoStream)
     })
+    call.on('close',()=>{
+        video.remove()
+    })
+    peers[userId]=call
 }
 
 //function for loading vedio and appending it to vedio-grid
