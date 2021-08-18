@@ -34,6 +34,4 @@ io.on('connection',(socket)=>{
 })
 
 //starting the server at 3030 port
-server.listen(3030,()=>{
-    console.log('server runnig at http://localhost:3030')
-})
+server.listen(process.env.PORT||3030)

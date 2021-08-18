@@ -5,11 +5,11 @@ const msgList=document.getElementById('msgList')
 const chatWindow = document.getElementById('chatWindow');
 myVideo.muted=true
 const peers={}
-const socket=io()
+const socket=io('/')
 const peer=new Peer(undefined,{
     path:'/peerjs',
     host:'/',
-    port:'3030',
+    port:'443',
 })
 
 //This is used for asking permission form the user for vedio and audio and returns a promise
