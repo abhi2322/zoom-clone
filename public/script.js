@@ -6,7 +6,7 @@ const chatWindow = document.getElementById('chatWindow');
 myVideo.muted=true
 const peers={}
 const socket=io('/')
-const peer=new Peer(undefined,{
+const peer=new Peer({
     secure:true,
     host:'lit-shore-16346.herokuapp.com',
     port:'443',
