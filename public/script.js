@@ -15,7 +15,7 @@ const peer=new Peer(undefined,{
 let mystream;
 navigator.mediaDevices.getUserMedia({
     video:true,
-    audio:false
+    audio:true
 }).then((stream)=>{
     addVideoStream(myVideo,stream)
     mystream=stream
@@ -37,7 +37,7 @@ peer.on('call',(call)=>{
 })
 })
 
-
+//funciton to make a connection to new user and add its vedio stream to our grid
 const connectToNewUser=(userId,stream)=>{
     const call=peer.call(userId,stream)
     const video=document.createElement('video')
@@ -46,7 +46,7 @@ const connectToNewUser=(userId,stream)=>{
     })
 }
 
-//function to loading vedio and appending it to vedio-grid
+//function for loading vedio and appending it to vedio-grid
 addVideoStream=(video,stream)=>{
     video.srcObject=stream
     video.addEventListener('loadedmetadata',()=>{
@@ -73,6 +73,65 @@ socket.on('createMsg',(msg)=>{
       }
 })
 
+//function to keep scrolling till the end
 function updateScroll(){
     element.scrollTop = element.scrollHeight;
 }
+
+
+//function for mute and unmute button
+const muteUnmute=()=>{
+    var enabled=mystream.getAudioTracks()[0].enabled
+    if(enabled){
+        setUnmuteButton()
+        mystream.getAudioTracks()[0].enabled=false
+    }
+    else{
+        setMuteButton()
+        mystream.getAudioTracks()[0].enabled=true
+    }
+}
+
+const setMuteButton=()=>{
+    const html = `
+    <i class="fas fa-microphone"></i>
+    <span>Mute</span>
+  `
+  document.querySelector('.main__mute_button').innerHTML = html;
+}
+
+const setUnmuteButton = () => {
+    const html = `
+      <i class="unmute fas fa-microphone-slash"></i>
+      <span>Unmute</span>
+    `
+    document.querySelector('.main__mute_button').innerHTML = html;
+  }
+
+//function to stop and play video
+  const playStop = () => {
+    let enabled = mystream.getVideoTracks()[0].enabled;
+    if (enabled) {
+      mystream.getVideoTracks()[0].enabled = false;
+      setPlayVideo()
+    } else {
+      setStopVideo()
+      mystream.getVideoTracks()[0].enabled = true;
+    }
+  }
+
+  const setStopVideo = () => {
+    const html = `
+      <i class="fas fa-video"></i>
+      <span>Stop Video</span>
+    `
+    document.querySelector('.main__video_button').innerHTML = html;
+  }
+  
+  const setPlayVideo = () => {
+    const html = `
+    <i class="stop fas fa-video-slash"></i>
+      <span>Play Video</span>
+    `
+    document.querySelector('.main__video_button').innerHTML = html;
+  }
