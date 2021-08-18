@@ -8,7 +8,7 @@ const peers={}
 const socket=io('/')
 const peer=new Peer(undefined,{
     path:'/peerjs',
-    host:'/',
+    host:'lit-shore-16346.herokuapp.com',
     port:'443',
 })
 
